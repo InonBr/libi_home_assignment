@@ -13,6 +13,7 @@ const MovieSchema = new mongoose.Schema({
   },
   imdb: {
     required: true,
+    // unique: true,
     type: String,
   },
   date: {
