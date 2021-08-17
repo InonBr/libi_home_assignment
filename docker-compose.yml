@@ -1,0 +1,27 @@
+version: '3'
+services:
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - ./data/mongo:/data/db
+
+  # backend:
+  #   container_name: back_end
+  #   env_file: './back_end/.env'
+  #   build:
+  #     context: ./back_end
+  #     dockerfile: ./Dockerfile
+  #   image: 'back_end'
+  #   ports:
+  #     - '5000:5000'
+
+  # frontend:
+  #   build:
+  #     context: ./li_front_end
+  #     dockerfile: ./Dockerfile
+  #   image: 'front_end'
+  #   ports:
+  #     - '3000:3000'
