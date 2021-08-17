@@ -3,6 +3,7 @@ const app = express();
 const cors = require('cors');
 const createAdminIfNotExist = require('./lib/createAdminUser');
 const users_routers = require('./routers/users_routers');
+const movies_routers = require('./routers/movies_routers');
 
 const connectDB = require('./db/db');
 
@@ -12,6 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api', users_routers);
+app.use('/api', movies_routers);
 
 connectDB().then(() => {
   console.log('🔵 MongoDB connected...');
