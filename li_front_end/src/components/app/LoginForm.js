@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button, Form } from 'react-bootstrap';
+import { loginApi } from '../../lib/api';
+import Cookies from 'universal-cookie';
 import '../styles/forms.css';
 
 const LoginForm = () => {
+  const cookies = new Cookies();
   const [invalidCredentialsErr, setInvalidCredentialsErr] = useState(false);
 
   const {
@@ -15,7 +18,17 @@ const LoginForm = () => {
   const onSubmit = (data) => {
     setInvalidCredentialsErr(false);
 
-    console.log(data);
+    loginApi(data)
+      .then((response) => {
+        cookies.set('userToken', response.data.token);
+        window.location = '/secure';
+      })
+      .catch((error) => {
+        const errorMessage = error.response.data.msg;
+        if (errorMessage.includes('invalid')) {
+          setInvalidCredentialsErr(true);
+        }
+      });
   };
 
   const errMessageToShow = () => {
