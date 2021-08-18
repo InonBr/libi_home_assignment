@@ -8,4 +8,21 @@ const findMoviesAndCategorys = async () => {
   return { movies, categorys };
 };
 
-module.exports = findMoviesAndCategorys;
+const findAndDelete = async (movieId) => {
+  const movie = await Movie.findById(movieId);
+
+  if (movie) {
+    const category = await Category.findOne({ category: movie.category });
+
+    category.count--;
+
+    await Movie.findByIdAndDelete(movieId);
+    await category.save();
+
+    return movie;
+  } else {
+    return movie;
+  }
+};
+
+module.exports = { findMoviesAndCategorys, findAndDelete };

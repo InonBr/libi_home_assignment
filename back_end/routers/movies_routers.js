@@ -5,7 +5,7 @@ const Category = require('../models/Categorys');
 const { check, validationResult } = require('express-validator');
 const auth = require('../middleware/auth');
 const imdbUrlsTest = require('../lib/imbd');
-const findMoviesAndCategorys = require('../lib/movies');
+const { findMoviesAndCategorys, findAndDelete } = require('../lib/movies');
 
 router.post(
   '/add_movie',
@@ -77,12 +77,30 @@ router.post(
 
 router.get('/movies_list', auth, async (req, res) => {
   try {
-    const movie = await Movie.find({});
-
-    console.log(movie);
+    const movieData = await findMoviesAndCategorys();
 
     return res.status(200).json({
-      msg: 'test',
+      msg: 'movies and ategorys lists',
+      movieData,
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send({ err: 'Server error', message: err.message });
+  }
+});
+
+router.delete('/delete_movie/:movieId', auth, async (req, res) => {
+  try {
+    findAndDelete(req.params.movieId).then((data) => {
+      if (!data) {
+        return res.status(404).json({
+          msg: 'no movie was found',
+        });
+      }
+
+      return res.status(200).json({
+        msg: 'deleted successfully',
+      });
     });
   } catch (err) {
     console.error(err.message);
