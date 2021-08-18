@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
-import Cookies from 'universal-cookie';
 import Login from '../components/app/Login';
+import SourcePage from '../components/app/SourcePage';
 import {
   BrowserRouter as Router,
   Switch,
@@ -8,33 +7,23 @@ import {
   Redirect,
 } from 'react-router-dom';
 
-const Routers = () => {
-  const [logedIn, setLogedIn] = useState(false);
-
-  useEffect(() => {
-    const cookies = new Cookies();
-
-    if (cookies.get('userToken')) {
-      setLogedIn(true);
-    } else {
-      setLogedIn(false);
-    }
-  }, []);
-
+const Routers = (props) => {
   return (
     <Router>
       <Switch>
-        {logedIn && (
-          <Route exact path='/secure'>
-            <h1>secure page</h1>
+        {props.user && <Route exact path='/secure' component={SourcePage} />}
+
+        {props.user && (
+          <Route exact path='/secure/:category'>
+            <h1>category!!!!</h1>
           </Route>
         )}
 
-        {!logedIn && <Route exact path='/login' component={Login} />}
+        {!props.user && <Route path='/login' component={Login} />}
 
         <Route
           render={() => {
-            return logedIn ? (
+            return props.user ? (
               <Redirect to='/secure' />
             ) : (
               <Redirect to='/login' />
