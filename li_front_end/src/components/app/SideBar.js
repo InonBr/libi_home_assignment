@@ -5,6 +5,7 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import Cookies from 'universal-cookie';
 
 const drawerWidth = 240;
 
@@ -29,7 +30,13 @@ const useStyles = makeStyles(() =>
 );
 
 const SideBar = () => {
+  const cookies = new Cookies();
   const classes = useStyles();
+
+  const handleLogout = () => {
+    cookies.remove('userToken', { path: '/' });
+    window.location = '/login';
+  };
 
   return (
     <div className={classes.root}>
@@ -47,7 +54,7 @@ const SideBar = () => {
         <div className={classes.toolbar} />
         <Divider />
         <List>
-          <ListItem button onClick={() => console.log('logout')}>
+          <ListItem button onClick={() => handleLogout()}>
             <ListItemText primary='Logout' />
           </ListItem>
           <ListItem
