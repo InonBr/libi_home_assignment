@@ -14,6 +14,10 @@ const Routers = (props) => {
         {props.user && <Route exact path='/secure' component={SourcePage} />}
 
         {props.user && (
+          <Route exact path='/secure/add_movie' component={SourcePage} />
+        )}
+
+        {props.user && (
           <Route exact path='/secure/:category'>
             <h1>category!!!!</h1>
           </Route>

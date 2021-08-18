@@ -2,6 +2,10 @@
   color: rgb(185, 51, 51);
 }
 
+.green-text {
+  color: rgb(60, 200, 100);
+}
+
 .center-text {
   text-align: center;
 }

@@ -50,7 +50,10 @@ const SideBar = () => {
           <ListItem button onClick={() => console.log('logout')}>
             <ListItemText primary='Logout' />
           </ListItem>
-          <ListItem button onClick={() => console.log('Add Movie')}>
+          <ListItem
+            button
+            onClick={() => (window.location = '/secure/add_movie')}
+          >
             <ListItemText primary='Add Movie' />
           </ListItem>
         </List>
