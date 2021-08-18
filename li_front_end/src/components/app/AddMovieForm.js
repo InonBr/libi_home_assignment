@@ -31,6 +31,9 @@ const AddMovieForm = () => {
         if (error.response.data.message.includes('duplicate')) {
           setErrMsg('Movie already uploaded');
           setShowErr(true);
+        } else {
+          setErrMsg(error.response.data.err);
+          setShowErr(true);
         }
       });
   };

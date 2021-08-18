@@ -1,4 +1,4 @@
-import { loginUrl, addMovieUrl } from './url';
+import { loginUrl, addMovieUrl, moviesListUrl } from './url';
 const axios = require('axios');
 
 const loginApi = (obj) => {
@@ -16,4 +16,14 @@ const addMovieApi = (obj, token) => {
   });
 };
 
-export { loginApi, addMovieApi };
+const moviesListApi = (token) => {
+  return axios({
+    method: 'get',
+    url: moviesListUrl,
+    headers: {
+      Authorization: token,
+    },
+  });
+};
+
+export { loginApi, addMovieApi, moviesListApi };
