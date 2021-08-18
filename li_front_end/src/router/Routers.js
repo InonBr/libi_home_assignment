@@ -1,3 +1,4 @@
+import Login from '../components/app/Login';
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,9 +13,11 @@ const Routers = () => {
         <Route path='/secure'>
           <h1>secure page</h1>
         </Route>
+
         <Route path='/login'>
-          <h1>login page</h1>
+          <Login />
         </Route>
+
         <Route
           render={() => {
             return <Redirect to='/login' />;
