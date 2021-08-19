@@ -18,10 +18,10 @@ services:
     ports:
       - '5000:5000'
 
-  # frontend:
-  #   build:
-  #     context: ./li_front_end
-  #     dockerfile: ./Dockerfile
-  #   image: 'front_end'
-  #   ports:
-  #     - '3000:3000'
+  frontend:
+    build:
+      context: ./li_front_end
+      dockerfile: ./Dockerfile
+    image: 'front_end'
+    ports:
+      - '3000:3000'
