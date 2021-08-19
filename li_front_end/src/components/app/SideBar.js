@@ -46,6 +46,7 @@ const SideBar = () => {
 
   const handleLogout = () => {
     cookies.remove('userToken', { path: '/' });
+    cookies.remove('userToken', { path: '/secure' });
     window.location = '/login';
   };
 
