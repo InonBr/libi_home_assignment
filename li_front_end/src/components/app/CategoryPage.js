@@ -1,5 +1,7 @@
+import MoviesList from './MoviesList';
+
 const CategoryPage = () => {
-  return <h1>category page</h1>;
+  return <MoviesList />;
 };
 
 export default CategoryPage;
