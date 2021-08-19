@@ -37,6 +37,8 @@ const SideBar = () => {
   const [categorys, setCategorys] = useState(['all movies']);
 
   useEffect(() => {
+    setCategorys(['all movies']);
+
     movieData.categorys.forEach((category) => {
       setCategorys((categorys) => [...categorys, category.category]);
     });

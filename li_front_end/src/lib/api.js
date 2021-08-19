@@ -1,4 +1,4 @@
-import { loginUrl, addMovieUrl, moviesListUrl } from './url';
+import { loginUrl, addMovieUrl, moviesListUrl, deleteMovieUrl } from './url';
 const axios = require('axios');
 
 const loginApi = (obj) => {
@@ -26,4 +26,14 @@ const moviesListApi = (token) => {
   });
 };
 
-export { loginApi, addMovieApi, moviesListApi };
+const movieDeleteApi = (movieId, token) => {
+  return axios({
+    method: 'delete',
+    url: `${deleteMovieUrl}${movieId}`,
+    headers: {
+      Authorization: token,
+    },
+  });
+};
+
+export { loginApi, addMovieApi, moviesListApi, movieDeleteApi };

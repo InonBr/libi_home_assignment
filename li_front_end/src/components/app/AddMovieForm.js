@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { MovieDataContext } from '../../context/MovieDataContext';
+import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button, Form } from 'react-bootstrap';
 import { addMovieApi } from '../../lib/api';
@@ -7,6 +8,7 @@ import '../styles/forms.css';
 
 const AddMovieForm = () => {
   const cookies = new Cookies();
+  const { setMovieData } = useContext(MovieDataContext);
   const [showErr, setShowErr] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [errMsg, setErrMsg] = useState('');
@@ -24,6 +26,7 @@ const AddMovieForm = () => {
 
     addMovieApi(data, cookies.get('userToken'))
       .then((response) => {
+        setMovieData(response.data.movieData);
         setSuccessMsg(response.data.msg);
         setShowSuccess(true);
       })

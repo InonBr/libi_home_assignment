@@ -1,7 +1,20 @@
+import { MovieDataContext } from '../../context/MovieDataContext';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { Col, Card } from 'react-bootstrap';
+import { Col, Card, Button } from 'react-bootstrap';
+import Cookies from 'universal-cookie';
+import { movieDeleteApi } from '../../lib/api';
 
 const Cards = (props) => {
+  const cookies = new Cookies();
+  const { setMovieData } = useContext(MovieDataContext);
+
+  const deleteMovie = (movieId) => {
+    movieDeleteApi(movieId, cookies.get('userToken')).then((response) => {
+      setMovieData(response.data.movieData);
+    });
+  };
+
   return (
     <Col>
       <Card className='cards-sise'>
@@ -13,6 +26,14 @@ const Cards = (props) => {
               Visit Movie Page
             </Link>
           </Card.Text>
+          <Button
+            variant='danger'
+            onClick={() => {
+              deleteMovie(props.movie._id);
+            }}
+          >
+            Delete Movie
+          </Button>
         </Card.Body>
       </Card>
     </Col>

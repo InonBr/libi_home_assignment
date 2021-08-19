@@ -6,6 +6,7 @@ const { check, validationResult } = require('express-validator');
 const auth = require('../middleware/auth');
 const imdbUrlsTest = require('../lib/imbd');
 const { findMoviesAndCategorys, findAndDelete } = require('../lib/movies');
+const fakeList = require('../lib/fakeMoviesList');
 
 router.post(
   '/add_movie',
@@ -77,7 +78,12 @@ router.post(
 
 router.get('/movies_list', auth, async (req, res) => {
   try {
-    const movieData = await findMoviesAndCategorys();
+    let movieData = await findMoviesAndCategorys();
+
+    if (!movieData.movies.length) {
+      movieData = fakeList;
+      console.log(movieData);
+    }
 
     return res.status(200).json({
       msg: 'movies and ategorys lists',
@@ -91,15 +97,18 @@ router.get('/movies_list', auth, async (req, res) => {
 
 router.delete('/delete_movie/:movieId', auth, async (req, res) => {
   try {
-    findAndDelete(req.params.movieId).then((data) => {
+    findAndDelete(req.params.movieId).then(async (data) => {
       if (!data) {
         return res.status(404).json({
           msg: 'no movie was found',
         });
       }
 
+      const movieData = await findMoviesAndCategorys();
+
       return res.status(200).json({
         msg: 'deleted successfully',
+        movieData,
       });
     });
   } catch (err) {

@@ -12,7 +12,7 @@ const MoviesList = () => {
     const url = window.location.href.replace(/%20/g, ' ').split('/');
     const category = url[url.length - 1];
 
-    if (category === 'all movies') {
+    if (category === 'all movies' || category === 'secure') {
       setMoviesToList(movieData.movies);
     } else {
       const movieByCategory = movieData.movies.filter((movie) => {

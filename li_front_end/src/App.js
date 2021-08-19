@@ -17,7 +17,12 @@ function App() {
       setShowLoader(false);
     } else {
       moviesListApi(cookies.get('userToken')).then((response) => {
-        setMovieData(response.data.movieData);
+        if (response.data.movieData.fakeList) {
+          setMovieData(response.data.movieData.fakeList);
+        } else {
+          setMovieData(response.data.movieData);
+        }
+
         setShowLoader(false);
       });
     }
@@ -40,7 +45,7 @@ function App() {
   return (
     <div className='App'>
       {showLoader && loader()}
-      <MovieDataContext.Provider value={{ movieData }}>
+      <MovieDataContext.Provider value={{ movieData, setMovieData }}>
         {!showLoader && <Routers user={cookies.get('userToken')} />}
       </MovieDataContext.Provider>
     </div>
