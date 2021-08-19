@@ -18,9 +18,7 @@ const Routers = (props) => {
         )}
 
         {props.user && (
-          <Route exact path='/secure/:category'>
-            <h1>category!!!!</h1>
-          </Route>
+          <Route exact path='/secure/:category' component={SourcePage} />
         )}
 
         {!props.user && <Route path='/login' component={Login} />}

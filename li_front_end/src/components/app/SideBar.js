@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { MovieDataContext } from '../../context/MovieDataContext';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -30,8 +31,16 @@ const useStyles = makeStyles(() =>
 );
 
 const SideBar = () => {
+  const { movieData } = useContext(MovieDataContext);
   const cookies = new Cookies();
   const classes = useStyles();
+  const [categorys, setCategorys] = useState(['all movies']);
+
+  useEffect(() => {
+    movieData.categorys.forEach((category) => {
+      setCategorys((categorys) => [...categorys, category.category]);
+    });
+  }, [movieData]);
 
   const handleLogout = () => {
     cookies.remove('userToken', { path: '/' });
@@ -65,8 +74,12 @@ const SideBar = () => {
           </ListItem>
         </List>
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text) => (
-            <ListItem button key={text} onClick={() => console.log(text)}>
+          {categorys.map((text) => (
+            <ListItem
+              button
+              key={text}
+              onClick={() => (window.location = `/secure/${text}`)}
+            >
               <ListItemText primary={text} />
             </ListItem>
           ))}
