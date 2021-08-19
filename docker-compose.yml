@@ -8,15 +8,15 @@ services:
     volumes:
       - ./data/mongo:/data/db
 
-  # backend:
-  #   container_name: back_end
-  #   env_file: './back_end/.env'
-  #   build:
-  #     context: ./back_end
-  #     dockerfile: ./Dockerfile
-  #   image: 'back_end'
-  #   ports:
-  #     - '5000:5000'
+  backend:
+    container_name: back_end
+    env_file: './back_end/.env'
+    build:
+      context: ./back_end
+      dockerfile: ./Dockerfile
+    image: 'back_end'
+    ports:
+      - '5000:5000'
 
   # frontend:
   #   build:

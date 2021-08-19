@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const db = 'mongodb://0.0.0.0:27017/docker-mongo-db';
+const db = 'mongodb://mongo:27017/docker-mongo-db';
 
 const connectDB = async () => {
   try {
